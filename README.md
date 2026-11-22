@@ -42,7 +42,7 @@ Speeds vary a lot with Cerebras load. Each filmed run is the best of many attemp
 
 Prompt and config only. The prompt names the five gifts and brands, gives five detailed queries and gives the answer's layout with those names, so Kimi only fills in each link from the live results.
 
-Best of 313 attempts across clean web-search setups up to this run (36 completed, median 916). The composer's session readout shows the settled 1,365. The small badge under the message shows 1,339 because it counts call 1 once per search card (five times).
+Best of 313 attempts across clean web-search setups up to this run (36 completed, median 916; 14 restarted after a slow first call; the rest hit 429s or failed). The composer's session readout shows the settled 1,365. The small badge under the message shows 1,339 because it counts call 1 once per search card (five times).
 
 ### trimmed-two-call-1588
 
@@ -51,13 +51,14 @@ This goes beyond prompt and config.
 - A plugin on the standard provider hook shortens the system prompt and requires the tool on call 1. On call 2 it drops the tools and earlier context and sends only the five live results (with store descriptions), "Zero prose." and "Repeat the list above in full."
 - It retries 429s every 2-3 s before output starts.
 - No store list, preset products, product URLs or cache. Timing and usage are untouched.
-- Best of 112 attempts with this setup up to this run (25 completed, median 1,160).
+- The long queries and copied store descriptions are partly there for speed: long verbatim copies decode faster.
+- Best of 112 attempts with this setup up to this run: 74 were restarted after a slow first call and 25 completed. The 1,160 median covers only those 25, so it is higher than an unfiltered median.
 
 ### two-call-1371
 
 - Beyond prompt and config: a small plugin gives Kimi a search_catalog tool backed live by Shopify's Global Catalog. No store list, preset products, product URLs or cache. Kimi makes the five searches itself.
 - The prompt gives five detailed search queries as exact arguments.
-- Best of 253 attempts up to this run: 27 completed (median 910). The rest hit 429s or were restarted.
+- Best of 253 attempts up to this run: 27 completed (median 910). 23 were restarted after a slow first call. The rest hit 429s or failed.
 - The badge shows partial numbers during the run; the settled mean is 1,371.
 
 ### turbo-one-call-1501
