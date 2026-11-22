@@ -3,12 +3,13 @@
 **Project Name:** Santa's Speedy Shopper
 **Team Members:** Solo: BrightyBrainiac (X: [@clasher11102](https://x.com/clasher11102), Discord: @quirkyquests)
 
-Santa's Speedy Shopper is four honest answers to one question: how fast can Kimi find five real Christmas gifts? It starts with prompt and config only, then adds one thing at a time (a search tool, a lighter second call, a single call), so it's clear what each step buys. The thing that mattered most was giving the model less to think about.
+Santa's Speedy Shopper is five honest answers to one question: how fast can Kimi find five real Christmas gifts? It starts with prompt and config only, then adds one thing at a time (a search tool, a lighter second call, a single call, primed decoding), so it's clear what each step buys. The thing that mattered most was giving the model less to think about.
 
 Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https://github.com/wkasekende/openclaw-speed-patch). No OpenClaw source edits. Numbers are the patch's server-timed session readout.
 
 | Setup | Mean TPS | Max (p90) | Calls | How | Evidence |
 |---|--:|--:|--:|---|---|
+| [`primed-two-call-1651`](primed-two-call-1651) | 1,651 | 1,747 | 1,554 / 1,747 | Ambitious: live batched search, with a disclosed plugin that primes decoding using placeholders | post in share-your-demo |
 | [`main-1365`](main-1365) | 1,365 | 1,403 | 1,327 / 1,403 | Prompt and config only, built-in web_search, no custom plugin | [post](https://discord.com/channels/1085960591052644463/1574062058117529641) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062058117529641/1574112577913622568) |
 | [`trimmed-two-call-1588`](trimmed-two-call-1588) | 1,588 | 1,610 | 1,610 / 1,566 | Kimi calls the search; a disclosed plugin trims context on call 2 | [post](https://discord.com/channels/1085960591052644463/1574092434693165086) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574092434693165086/1574112836802715831) |
 | [`two-call-1371`](two-call-1371) | 1,371 | 1,392 | 1,350 / 1,392 | Kimi calls a live catalog search tool from a small plugin | [post](https://discord.com/channels/1085960591052644463/1574062795195023450) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062795195023450/1574113005338230884) |
@@ -16,7 +17,7 @@ Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https
 
 No prompt, config or plugin contains a product URL, store domain or preset result. The plugin entries call Shopify's public Global Catalog endpoint live.
 
-An earlier prototype, [`santa-speedy-shopper`](https://github.com/Arshgill01/santa-speedy-shopper), used a list of storefronts. None of these four entries uses that code or list.
+An earlier prototype, [`santa-speedy-shopper`](https://github.com/Arshgill01/santa-speedy-shopper), used a list of storefronts. None of these five entries uses that code or list.
 
 ## Reproduce
 
@@ -68,3 +69,17 @@ This goes beyond prompt and config.
 - A second plugin, through the standard provider hook, sends Kimi only those results (with the stores' descriptions), "Zero prose." and "Repeat the list above in full." No tools or other context. It also retries 429s every 2-3 s before output starts.
 - No store list, preset products, product URLs or cache. Timing and usage are untouched.
 - Best of 180 one-call attempts across variants up to this run (93 completed, median 986).
+
+### primed-two-call-1651
+
+The ambitious entry. It goes beyond prompt and config.
+
+- **The user types a normal five-item list.** Kimi makes one search_catalog call with all five, and the search runs live on Shopify's Global Catalog.
+- **`fast/index.js` (echo mode) rewrites each request.** The system prompt is replaced by one built from the user's own list and budget: the exact tool arguments, plus a scripted one-line thought for each call.
+- **A synthetic example turn is inserted before the user's message.** It contains the same arguments and thoughts, and placeholder results such as `[Example gift 1](link-1)`. It has no product, store or URL.
+- **On call 2** the thought replayed with Kimi's own tool call is set to that scripted line.
+- **The tool returns this run's live lines three times**, because text already in context decodes faster. The answer shows them once.
+- **429s are retried every 2-3 s**, only before any output. Usage and timing are untouched.
+- **The catalog filter skips end-of-line listings** (last call, clearance), because one showed out of stock on its store page. That 1,614 take was discarded.
+- **Best of 192 attempts with this design up to this run:** 112 were restarted after a slow first call, 80 finished and 0 failed. The 1,192 median covers only finished runs.
+- The plugin file also holds the modes used by the other entries. Only `echo` is switched on here.

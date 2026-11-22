@@ -1,0 +1,9 @@
+{
+  "id": "santa-fast",
+  "name": "Santa Fast",
+  "description": "Disclosed request trimming and quick overload retries for Cerebras, through OpenClaw's provider stream hook.",
+  "version": "0.1.0",
+  "activation": { "onStartup": true },
+  "providers": ["cerebras"],
+  "configSchema": { "type": "object", "additionalProperties": true }
+}
