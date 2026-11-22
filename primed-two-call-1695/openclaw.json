@@ -92,7 +92,8 @@
         "enabled": true,
         "config": {
           "exampleOnAnswer": false,
-          "echo": true
+          "echo": true,
+          "examples": 2
         }
       }
     },

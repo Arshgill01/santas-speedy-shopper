@@ -40,12 +40,13 @@ function echo(payload, opts) {
   ].join("\n");
   const user = `${request}\n${wanted.map((q) => `- ${q}`).join("\n")}`;
   const id = "functions.search_catalog:0";
-  const example = opts.example === false ? [] : [
+  const once = opts.example === false ? [] : [
     { role: "user", content: user },
     { role: "assistant", content: "", reasoning: THINK_CALL, tool_calls: [{ id, type: "function", function: { name: "search_catalog", arguments: args } }] },
-    { role: "tool", tool_call_id: id, content: [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER].join("\n\nReply with exactly these lines:\n") },
+    { role: "tool", tool_call_id: id, content: opts.slimExample ? PLACEHOLDER : [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER].join("\n\nReply with exactly these lines:\n") },
     { role: "assistant", content: PLACEHOLDER, reasoning: THINK_ANSWER },
   ];
+  const example = Array.from({ length: opts.examples ?? 1 }, () => once).flat();
   const turn = messages.slice(at + 1).filter((m) => m.role === "assistant" ? m.tool_calls?.length : m.role === "tool");
   const answering = turn.some((m) => m.role === "tool");
   for (const m of turn) {

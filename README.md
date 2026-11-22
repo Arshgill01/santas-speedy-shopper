@@ -9,7 +9,7 @@ Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https
 
 | Setup | Mean TPS | Max (p90) | Calls | How | Evidence |
 |---|--:|--:|--:|---|---|
-| [`primed-two-call-1663`](primed-two-call-1663) | 1,663 | 1,714 | 1,611 / 1,714 | Ambitious: live batched search, with a disclosed plugin that primes decoding using placeholders | [post and demo under 60 s](https://discord.com/channels/1085960591052644463/1574131785447641149) |
+| [`primed-two-call-1695`](primed-two-call-1695) | 1,695 | 1,712 | 1,712 / 1,679 | Ambitious: live batched search, with a disclosed plugin that primes decoding using placeholders | [post and demo under 60 s](https://discord.com/channels/1085960591052644463/1574131785447641149) |
 | [`main-1365`](main-1365) | 1,365 | 1,403 | 1,327 / 1,403 | Prompt and config only, built-in web_search, no custom plugin | [post](https://discord.com/channels/1085960591052644463/1574062058117529641) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062058117529641/1574112577913622568) |
 | [`trimmed-two-call-1588`](trimmed-two-call-1588) | 1,588 | 1,610 | 1,610 / 1,566 | Kimi calls the search; a disclosed plugin trims context on call 2 | [post](https://discord.com/channels/1085960591052644463/1574092434693165086) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574092434693165086/1574112836802715831) |
 | [`two-call-1371`](two-call-1371) | 1,371 | 1,392 | 1,350 / 1,392 | Kimi calls a live catalog search tool from a small plugin | [post](https://discord.com/channels/1085960591052644463/1574062795195023450) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062795195023450/1574113005338230884) |
@@ -78,16 +78,17 @@ This goes beyond prompt and config.
 - No store list, preset products, product URLs or cache. Timing and usage are untouched.
 - Best of 180 one-call attempts across variants up to this run (93 completed, median 986).
 
-### primed-two-call-1663
+### primed-two-call-1695
 
 The ambitious entry. It goes beyond prompt and config.
 
 - **The user types a normal five-item list.** Kimi makes one search_catalog call with all five, and the search runs live on Shopify's Global Catalog.
 - **`fast/index.js` (echo mode) rewrites each request.** The system prompt is replaced by one built from the user's own list and budget: the exact tool arguments, plus a scripted one-line thought for each call.
-- **A synthetic example turn is inserted before the user's message, on call 1 only.** It contains the same arguments and thoughts, and placeholder results such as `[Example gift 1](link-1)`. It has no product, store or URL.
+- **A synthetic example turn is inserted twice before the user's message, on call 1 only.** It contains the same arguments and thoughts, and placeholder results such as `[Example gift 1](link-1)`. It has no product, store or URL.
 - **On call 2** the thought replayed with Kimi's own tool call is set to that scripted line.
 - **The tool returns this run's live lines three times**, because text already in context decodes faster. The answer shows them once.
 - **429s are retried every 2-3 s**, only before any output. Usage and timing are untouched.
 - **The catalog filter skips end-of-line listings** (last call, clearance), because one showed out of stock on its store page. That 1,614 take was discarded.
-- **Best of 283 attempts with this design up to this run:** 168 were restarted after a slow first call, 115 finished and 0 failed. The 1,182 median covers only finished runs.
+- **Best of 533 attempts with this design up to this run:** 303 were restarted after a slow first call, 200 finished and 30 others did not finish. The 1,192 median covers only finished runs. The run uses the two-example setting, which was added after the first 1,663 run.
+- **In the video, the journal store blocks the cloud recording machine** ("Access Denied") after the product and price load. The link was opened from a normal connection afterwards and works.
 - The plugin file also holds the modes used by the other entries. Only `echo` is switched on here.
