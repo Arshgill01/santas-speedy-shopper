@@ -9,10 +9,10 @@ Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https
 
 | Setup | Mean TPS | Max (p90) | Calls | How | Evidence |
 |---|--:|--:|--:|---|---|
-| [`main-1365`](main-1365) | 1,365 | 1,403 | 1,327 / 1,403 | Prompt and config only, built-in web_search, no plugin | [post and video](https://discord.com/channels/1085960591052644463/1574062058117529641) |
-| [`trimmed-two-call-1588`](trimmed-two-call-1588) | 1,588 | 1,610 | 1,610 / 1,566 | Kimi calls the search; a disclosed plugin trims context on call 2 | [post and video](https://discord.com/channels/1085960591052644463/1574092434693165086) |
-| [`two-call-1371`](two-call-1371) | 1,371 | 1,392 | 1,350 / 1,392 | Kimi calls a live catalog search tool from a small plugin | [post and video](https://discord.com/channels/1085960591052644463/1574062795195023450) |
-| [`turbo-one-call-1501`](turbo-one-call-1501) | 1,501 | 1,501 | 1,501 | Experimental: plugins search first and send Kimi only the results | [post and video](https://discord.com/channels/1085960591052644463/1574070586592993410) |
+| [`main-1365`](main-1365) | 1,365 | 1,403 | 1,327 / 1,403 | Prompt and config only, built-in web_search, no custom plugin | [post](https://discord.com/channels/1085960591052644463/1574062058117529641) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062058117529641/1574112577913622568) |
+| [`trimmed-two-call-1588`](trimmed-two-call-1588) | 1,588 | 1,610 | 1,610 / 1,566 | Kimi calls the search; a disclosed plugin trims context on call 2 | [post](https://discord.com/channels/1085960591052644463/1574092434693165086) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574092434693165086/1574112836802715831) |
+| [`two-call-1371`](two-call-1371) | 1,371 | 1,392 | 1,350 / 1,392 | Kimi calls a live catalog search tool from a small plugin | [post](https://discord.com/channels/1085960591052644463/1574062795195023450) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062795195023450/1574113005338230884) |
+| [`turbo-one-call-1501`](turbo-one-call-1501) | 1,501 | 1,501 | 1,501 | Experimental: plugins search first and send Kimi only the results | [post](https://discord.com/channels/1085960591052644463/1574070586592993410) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574070586592993410/1574113168433745930) |
 
 No prompt, config or plugin contains a product URL, store domain or preset result. The plugin entries call Shopify's public Global Catalog endpoint live.
 
