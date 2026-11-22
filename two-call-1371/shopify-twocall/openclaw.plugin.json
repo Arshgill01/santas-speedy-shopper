@@ -1,0 +1,26 @@
+{
+  "id": "shopify-catalog-search",
+  "name": "Shopify Global Catalog Search",
+  "description": "Live keyless product search tool backed by Shopify's public Global Catalog MCP. No store list, no hard-coded URLs.",
+  "version": "0.1.0",
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "search_catalog"
+    ]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "detail": {
+        "type": "number"
+      },
+      "format": {
+        "type": "string"
+      }
+    }
+  }
+}

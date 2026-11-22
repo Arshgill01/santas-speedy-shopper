@@ -1,0 +1,112 @@
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "cerebras/moonshotai-kimi-k3.1-pro-trial"
+      },
+      "thinkingDefault": "low",
+      "models": {
+        "cerebras/moonshotai-kimi-k3.1-pro-trial": {
+          "params": {
+            "temperature": 0.2,
+            "maxTokens": 1600,
+            "parallel_tool_calls": true,
+            "extra_body": {
+              "service_tier": "auto"
+            }
+          }
+        }
+      },
+      "modelPolicy": {
+        "allow": [
+          "cerebras/moonshotai-kimi-k3.1-pro-trial"
+        ]
+      },
+      "heartbeat": {
+        "every": "0m"
+      }
+    },
+    "entries": {
+      "main": {
+        "skills": []
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "cerebras": {
+        "baseUrl": "https://api.cerebras.ai/v1",
+        "api": "openai-completions",
+        "apiKey": "${CEREBRAS_API_KEY}",
+        "models": [
+          {
+            "id": "moonshotai-kimi-k3.1-pro-trial",
+            "name": "Kimi K3.1 Pro (Cerebras)",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "supportsTools": true,
+              "supportsStrictMode": false,
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "low",
+                "high",
+                "max"
+              ],
+              "supportsPromptCacheKey": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "allow": [
+      "parallel"
+    ],
+    "entries": {
+      "parallel": {
+        "enabled": true
+      }
+    },
+    "slots": {
+      "memory": "none"
+    }
+  },
+  "skills": {
+    "allowBundled": []
+  },
+  "tools": {
+    "profile": "minimal",
+    "alsoAllow": [
+      "web_search"
+    ],
+    "deny": [
+      "presence",
+      "session_status",
+      "gateway"
+    ],
+    "toolSearch": false,
+    "web": {
+      "search": {
+        "enabled": true,
+        "provider": "parallel-free",
+        "maxResults": 1,
+        "cacheTtlMinutes": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "santa-turbo",
+  "name": "Santa Turbo",
+  "description": "Live Shopify Global Catalog search before a single Kimi call. No store list, no preset products.",
+  "version": "0.1.0",
+  "activation": { "onStartup": true },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": { "detail": { "type": "number" }, "system": { "type": "string" }, "tail": { "type": "string" }, "head": { "type": "string" }, "foot": { "type": "string" }, "place": { "type": "string", "enum": ["user", "system"] } }
+  }
+}

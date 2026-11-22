@@ -1,0 +1,122 @@
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "cerebras/moonshotai-kimi-k3.1-pro-trial"
+      },
+      "thinkingDefault": "low",
+      "models": {
+        "cerebras/moonshotai-kimi-k3.1-pro-trial": {
+          "params": {
+            "temperature": 0.1,
+            "maxTokens": 2400
+          }
+        }
+      },
+      "modelPolicy": {
+        "allow": [
+          "cerebras/moonshotai-kimi-k3.1-pro-trial"
+        ]
+      },
+      "heartbeat": {
+        "every": "0m"
+      }
+    },
+    "entries": {
+      "main": {
+        "skills": []
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "cerebras": {
+        "baseUrl": "https://api.cerebras.ai/v1",
+        "api": "openai-completions",
+        "apiKey": "${CEREBRAS_API_KEY}",
+        "models": [
+          {
+            "id": "moonshotai-kimi-k3.1-pro-trial",
+            "name": "Kimi K3.1 Pro (Cerebras)",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "supportsTools": true,
+              "supportsStrictMode": false,
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "low",
+                "high",
+                "max"
+              ],
+              "supportsPromptCacheKey": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "allow": [
+      "santa-turbo",
+      "santa-fast"
+    ],
+    "slots": {
+      "memory": "none"
+    },
+    "load": {
+      "paths": [
+        "./turbo",
+        "./fast"
+      ]
+    },
+    "entries": {
+      "santa-turbo": {
+        "enabled": true,
+        "hooks": {
+          "allowConversationAccess": true
+        },
+        "config": {
+          "detail": 700,
+          "system": "Zero prose.",
+          "head": "<gifts>",
+          "foot": "</gifts>"
+        }
+      },
+      "santa-fast": {
+        "enabled": true,
+        "config": {
+          "system": "Zero prose.",
+          "ask": "Repeat the list above in full.",
+          "copyOnly": true
+        }
+      }
+    }
+  },
+  "skills": {
+    "allowBundled": []
+  },
+  "tools": {
+    "profile": "minimal",
+    "deny": [
+      "presence",
+      "session_status",
+      "gateway",
+      "web_search"
+    ],
+    "toolSearch": false
+  }
+}
