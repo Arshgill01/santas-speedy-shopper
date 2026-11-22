@@ -124,7 +124,7 @@ export default definePluginEntry({
   name: "Shopify Global Catalog Search",
   description: "Live keyless product search tool backed by Shopify's public Global Catalog MCP.",
   register(api) {
-    const copies = Math.min(3, Math.max(1, Number(api.pluginConfig?.detail ?? 3)));
+    const copies = Math.min(4, Math.max(1, Number(api.pluginConfig?.detail ?? 3)));
     api.registerTool({
       name: "search_catalog",
       label: "Search Shopify Catalog",

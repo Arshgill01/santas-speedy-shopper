@@ -85,7 +85,7 @@
       "shopify-catalog-search": {
         "enabled": true,
         "config": {
-          "detail": 3
+          "detail": 4
         }
       },
       "santa-fast": {
