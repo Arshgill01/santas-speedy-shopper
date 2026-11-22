@@ -1,5 +1,10 @@
 # Santa's Speedy Shopper: Speed Bounty entries
 
+**Project Name:** Santa's Speedy Shopper
+**Team Members:** Solo: BrightyBrainiac (X: [@clasher11102](https://x.com/clasher11102), Discord: @quirkyquests)
+
+Santa's Speedy Shopper is four honest answers to one question: how fast can Kimi find five real Christmas gifts? It starts with prompt and config only, then adds one thing at a time (a search tool, a lighter second call, a single call), so it's clear what each step buys. The thing that mattered most was giving the model less to think about.
+
 Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https://github.com/wkasekende/openclaw-speed-patch). No OpenClaw source edits. Numbers are the patch's server-timed session readout.
 
 | Setup | Mean TPS | Max (p90) | Calls | How | Evidence |
@@ -10,6 +15,8 @@ Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https
 | [`turbo-one-call-1501`](turbo-one-call-1501) | 1,501 | 1,501 | 1,501 | Experimental: plugins search first and send Kimi only the results | [post and video](https://discord.com/channels/1085960591052644463/1574070586592993410) |
 
 No prompt, config or plugin contains a product URL, store domain or preset result. The plugin entries call Shopify's public Global Catalog endpoint live.
+
+An earlier prototype, [`santa-speedy-shopper`](https://github.com/Arshgill01/santa-speedy-shopper), used a list of storefronts. None of these four entries uses that code or list.
 
 ## Reproduce
 
