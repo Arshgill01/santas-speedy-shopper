@@ -10,7 +10,7 @@ Kimi K3.1 Pro on Cerebras, OpenClaw `8b18b55` + the official [speed patch](https
 | Setup | Mean TPS | Max (p90) | Calls | How | Evidence |
 |---|--:|--:|--:|---|---|
 | [`primed-two-call-1695`](primed-two-call-1695) | 1,695 | 1,712 | 1,712 / 1,679 | Ambitious: live batched search, with a disclosed plugin that primes decoding using placeholders | [post and demo under 60 s](https://discord.com/channels/1085960591052644463/1574131785447641149) |
-| [`main-1402`](main-1402) | 1,402 | 1,505 | 1,298 / 1,505 | Prompt and config only, built-in web_search, no custom plugin | [post](https://discord.com/channels/1085960591052644463/1574062058117529641) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062058117529641/1574165697565560973) |
+| [`main-1479`](main-1479) | 1,479 | 1,535 | 1,424 / 1,535 | Prompt and config only, built-in web_search, no custom plugin | [post](https://discord.com/channels/1085960591052644463/1574062058117529641) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062058117529641/1574181091571662938) |
 | [`trimmed-two-call-1588`](trimmed-two-call-1588) | 1,588 | 1,610 | 1,610 / 1,566 | Kimi calls the search; a disclosed plugin trims context on call 2 | [post](https://discord.com/channels/1085960591052644463/1574092434693165086) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574092434693165086/1574112836802715831) |
 | [`two-call-1371`](two-call-1371) | 1,371 | 1,392 | 1,350 / 1,392 | Kimi calls a live catalog search tool from a small plugin | [post](https://discord.com/channels/1085960591052644463/1574062795195023450) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574062795195023450/1574113005338230884) |
 | [`turbo-one-call-1501`](turbo-one-call-1501) | 1,501 | 1,501 | 1,501 | Experimental: plugins search first and send Kimi only the results | [post](https://discord.com/channels/1085960591052644463/1574070586592993410) · [demo under 60 s](https://discord.com/channels/1085960591052644463/1574070586592993410/1574113168433745930) |
@@ -47,11 +47,11 @@ Speeds vary a lot with Cerebras load. Each filmed run is the best of many attemp
 
 ## What each entry does beyond the defaults
 
-### main-1402
+### main-1479
 
 Prompt and config only. The prompt names the five gifts and brands, gives five detailed queries and gives the answer's layout with those names, so Kimi only fills in each link from the live results.
 
-Best of 2,087 attempts across clean web-search setups up to this run (274 completed, median 1,015; 829 restarted after a slow first call; the rest hit 429s or failed). The composer's session readout shows the settled 1,402. The small badge under the message shows 1,333 because it counts call 1 once per search card (five times).
+Best of 2,854 attempts across clean web-search setups up to this run (360 completed, median 1,016; 1,102 restarted after a slow first call; the rest hit 429s or failed). The composer's session readout shows the settled 1,479. The small badge under the message shows 1,442 because it counts call 1 once per search card (five times).
 
 ### trimmed-two-call-1588
 
