@@ -11,7 +11,7 @@
       "models": {
         "cerebras/moonshotai-kimi-k3.1-pro-trial": {
           "params": {
-            "temperature": 0.2,
+            "temperature": 0,
             "maxTokens": 1024,
             "parallel_tool_calls": true
           }
@@ -91,6 +91,7 @@
       "santa-fast": {
         "enabled": true,
         "config": {
+          "exampleOnAnswer": false,
           "echo": true
         }
       }
