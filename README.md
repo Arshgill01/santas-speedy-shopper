@@ -89,5 +89,6 @@ The ambitious entry. It goes beyond prompt and config.
 - **The tool returns this run's live lines four times**, because text already in context decodes faster. The answer shows them once.
 - **429s are retried every 2-3 s**, only before any output. Usage and timing are untouched.
 - **The catalog filter skips end-of-line listings** (last call, clearance), because one showed out of stock on its store page. That 1,614 take was discarded.
+- **Later run with the same files: 1,712 mean (1,709 + 1,715) at 05:22 IST.** Same prompt, plugins and config as this folder; the same five live, in-stock products. Demo under 60 s: [`later-run-1712/`](primed-two-call-1704/later-run-1712). Best of 2,108 attempts with this design up to that run: 1,409 restarted after a slow first call, 483 finished (median 1,288).
 - **Best of 1,678 attempts with this design up to this run:** 1,088 were restarted after a slow first call, 427 finished and 163 others did not finish. The 1,268 median covers only finished runs. The run uses the two-example and four-copy settings, which were added after the first 1,663 run.
 - The plugin file also holds the modes used by the other entries. Only `echo` is switched on here.
